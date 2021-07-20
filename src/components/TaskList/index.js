@@ -1,11 +1,28 @@
+import { gql, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { IoIosArrowUp } from "react-icons/io";
 import { Container, ListTasks, TitleSection, Content } from "./styles";
 
+const getTasks = gql`
+  query {
+    tasks {
+      id
+      title
+      description
+      is_conclued
+    }
+  }
+`;
+
 function TaskList() {
   const [activeOpenTasks, setActiveOpenTasks] = useState(false);
   const [activeClosedTasks, setActiveClosedTasks] = useState(false);
+  const { loading, data } = useQuery(getTasks);
+
+  if (loading) return "";
+  console.log(data);
+
   return (
     <>
       <Container>
@@ -17,106 +34,22 @@ function TaskList() {
             />
           </TitleSection>
           <ListTasks active={activeOpenTasks}>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
+            {data.tasks.map((dados, index) => {
+              if (dados.is_conclued === false) {
+                return (
+                  <div>
+                    <AiOutlineCheckCircle />
+                    <div>
+                      <h2>{dados.title}</h2>
+                      <h3>27 Jul 2021</h3>
+                    </div>
+                  </div>
+                );
+              }
+              return "";
+            })}
           </ListTasks>
-        </Content>{" "}
+        </Content>
         <Content>
           <TitleSection active={activeClosedTasks}>
             <h1>Tarefas Fechadas</h1>
@@ -125,41 +58,20 @@ function TaskList() {
             />
           </TitleSection>
           <ListTasks active={activeClosedTasks}>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
-            <div>
-              <AiOutlineCheckCircle />
-              <div>
-                <h2>Fix the bugs in the application</h2>
-                <h3>27 Jul 2021</h3>
-              </div>
-            </div>
+            {data.tasks.map((dados, index) => {
+              if (dados.is_conclued === true) {
+                return (
+                  <div>
+                    <AiOutlineCheckCircle />
+                    <div>
+                      <h2>{dados.title}</h2>
+                      <h3>27 Jul 2021</h3>
+                    </div>
+                  </div>
+                );
+              }
+              return "";
+            })}
           </ListTasks>
         </Content>
       </Container>
