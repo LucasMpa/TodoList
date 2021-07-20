@@ -1,5 +1,12 @@
+import TaskList from "./components/TaskList";
+import DetailTask from "./components/DetailTask";
 function App() {
-  return <div>dgdg</div>;
+  return (
+    <>
+      <TaskList />
+      <DetailTask />
+    </>
+  );
 }
 
 export default App;
