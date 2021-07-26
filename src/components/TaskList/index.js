@@ -2,7 +2,9 @@ import { gql, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { IoIosArrowUp } from "react-icons/io";
-import { Container, ListTasks, TitleSection, Content } from "./styles";
+import { useOrderService } from "../../contexts/orderService";
+import { transformMounth } from "../../utils/taskActions";
+import { Container, ListTasks, TitleSection, TaskUnit } from "./styles";
 
 const getTasks = gql`
   query {
@@ -11,6 +13,7 @@ const getTasks = gql`
       title
       description
       is_conclued
+      created_at
     }
   }
 `;
@@ -20,60 +23,57 @@ function TaskList() {
   const [activeClosedTasks, setActiveClosedTasks] = useState(false);
   const { loading, data } = useQuery(getTasks);
 
+  const { specificTask, setSpecificTask } = useOrderService();
+
+  console.log(specificTask);
+
   if (loading) return "";
-  console.log(data);
+
+  function TaskListContent({ listStatus, taskCompleted }) {
+    return (
+      <ListTasks active={listStatus}>
+        {data.tasks.map((dados) => {
+          const getFullDate = parseInt(dados.created_at);
+          const day = new Date(getFullDate).getDate();
+          const fullYear = new Date(getFullDate).getFullYear();
+          const month = new Date(getFullDate).getMonth() + 1;
+
+          if (dados.is_conclued === taskCompleted) {
+            return (
+              <TaskUnit
+                onClick={() => setSpecificTask(dados.id)}
+                isConclued={dados.is_conclued}
+              >
+                <AiOutlineCheckCircle />
+                <div>
+                  <h2>{dados.title}</h2>
+                  <h3>{`${day} ${transformMounth(month)} ${fullYear}`}</h3>
+                </div>
+              </TaskUnit>
+            );
+          }
+          return "";
+        })}
+      </ListTasks>
+    );
+  }
 
   return (
     <>
       <Container>
-        <Content>
-          <TitleSection active={activeOpenTasks}>
-            <h1>Tarefas Abertas</h1>
-            <IoIosArrowUp
-              onClick={() => setActiveOpenTasks(!activeOpenTasks)}
-            />
-          </TitleSection>
-          <ListTasks active={activeOpenTasks}>
-            {data.tasks.map((dados, index) => {
-              if (dados.is_conclued === false) {
-                return (
-                  <div>
-                    <AiOutlineCheckCircle />
-                    <div>
-                      <h2>{dados.title}</h2>
-                      <h3>27 Jul 2021</h3>
-                    </div>
-                  </div>
-                );
-              }
-              return "";
-            })}
-          </ListTasks>
-        </Content>
-        <Content>
-          <TitleSection active={activeClosedTasks}>
-            <h1>Tarefas Fechadas</h1>
-            <IoIosArrowUp
-              onClick={() => setActiveClosedTasks(!activeClosedTasks)}
-            />
-          </TitleSection>
-          <ListTasks active={activeClosedTasks}>
-            {data.tasks.map((dados, index) => {
-              if (dados.is_conclued === true) {
-                return (
-                  <div>
-                    <AiOutlineCheckCircle />
-                    <div>
-                      <h2>{dados.title}</h2>
-                      <h3>27 Jul 2021</h3>
-                    </div>
-                  </div>
-                );
-              }
-              return "";
-            })}
-          </ListTasks>
-        </Content>
+        <TitleSection active={activeOpenTasks}>
+          <h1>Tarefas Abertas</h1>
+          <IoIosArrowUp onClick={() => setActiveOpenTasks(!activeOpenTasks)} />
+        </TitleSection>
+        <TaskListContent listStatus={activeOpenTasks} taskCompleted={false} />
+
+        <TitleSection active={activeClosedTasks}>
+          <h1>Tarefas Fechadas</h1>
+          <IoIosArrowUp
+            onClick={() => setActiveClosedTasks(!activeClosedTasks)}
+          />
+        </TitleSection>
+        <TaskListContent listStatus={activeClosedTasks} taskCompleted={true} />
       </Container>
     </>
   );

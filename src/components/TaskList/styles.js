@@ -4,11 +4,7 @@ export const Container = styled.div`
   width: 30vw;
   height: 100vh;
   background-color: #22262a;
-`;
-
-export const Content = styled.div`
   display: flex;
-  flex: 1;
   align-items: center;
   flex-direction: column;
   background-color: #22262a;
@@ -54,36 +50,41 @@ export const ListTasks = styled.div`
     background-color: #1f2326;
     border-radius: 4px;
   }
+`;
 
-  & > div:hover {
+export const TaskUnit = styled.div`
+  padding: 10px;
+  transition: 0.5s;
+  cursor: pointer;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  background-color: #1f2326;
+  flex-direction: row;
+
+  & > svg {
+    transition: 0.5s;
+    opacity: ${(props) => (props.isConclued ? "1.0" : "0.3")};
+    font-size: 30px;
+    color: ${(props) => (props.isConclued ? "#6841db" : "#FFF")};
+  }
+
+  :hover {
     background-color: #6841db;
     color: white;
     padding: 25px;
+    & > svg {
+      color: #fff;
+    }
   }
 
   & > div {
-    padding: 10px;
-    transition: 0.5s;
-    cursor: pointer;
-    flex-direction: row;
-    display: flex;
-    align-items: center;
-    background-color: #1f2326;
-    flex-direction: row;
-
-    & > svg {
-      opacity: 0.3;
-      font-size: 30px;
+    margin-left: 20px;
+    & > h2 {
+      font-size: 12px;
     }
-
-    & > div {
-      margin-left: 20px;
-      & > h2 {
-        font-size: 12px;
-      }
-      & > h3 {
-        font-size: 10px;
-      }
+    & > h3 {
+      font-size: 10px;
     }
   }
 `;

@@ -19,7 +19,8 @@ export const Container = styled.div`
       font-weight: bold;
 
       & > svg {
-        color: #6841db;
+        color: ${(props) => (props.isConclued ? "#6841db" : "#FFF")};
+        opacity: ${(props) => (props.isConclued ? "1" : "0.3")};
         font-size: 70px;
         margin-bottom: 10px;
       }

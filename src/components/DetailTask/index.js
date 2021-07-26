@@ -1,12 +1,44 @@
 import React from "react";
 import { AiFillCheckCircle, AiFillEdit, AiFillDelete } from "react-icons/ai";
-
+//import { useOrderService } from "../../contexts/orderService";
+import { gql, useQuery } from "@apollo/client";
 import { Container, Details, Actions, NewTask } from "./styles";
+import { useOrderService } from "../../contexts/orderService";
+import { transformMounth } from "../../utils/taskActions";
 
 function DetailTask() {
+  const { specificTask } = useOrderService();
+
+  const tasks = gql`
+    query {
+      tasks {
+        id
+        title
+        description
+        is_conclued
+        created_at
+      }
+    }
+  `;
+
+  const { loading, data } = useQuery(tasks);
+
+  if (loading) return "";
+
+  function getDetailsById(id) {
+    return data.tasks.filter((data) => {
+      return data.id === id;
+    });
+  }
+  const taskDetail = getDetailsById(specificTask)[0];
+  const getFullDate = parseInt(taskDetail.created_at);
+  const day = new Date(getFullDate).getDate();
+  const fullYear = new Date(getFullDate).getFullYear();
+  const month = new Date(getFullDate).getMonth() + 1;
+
   return (
     <>
-      <Container>
+      <Container isConclued={taskDetail.is_conclued}>
         <Actions>
           <span>
             <AiFillEdit />
@@ -18,21 +50,13 @@ function DetailTask() {
         <div>
           <span>
             <AiFillCheckCircle />
-            Concluído
+            {taskDetail.is_conclued ? "Concluído" : "Pendente"}
           </span>
 
           <Details>
-            <h2>Fix the bugs in the application</h2>
-            <h4>21 Jul 2021</h4>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-              sagittis, odio in iaculis porta, odio urna tincidunt augue, sit
-              amet sollicitudin sapien massa eget ex. Sed at porttitor diam, et
-              accumsan ante. Mauris finibus, felis ac posuere mollis, quam neque
-              ornare justo, vel efficitur ante sem finibus dui. Donec sit amet
-              justo id turpis bibendum feugiat. Aliquam eu lorem eu metus
-              eleifend accumsan. Aliquam erat volutpat.
-            </p>
+            <h2>{taskDetail.title}</h2>
+            <h4>{`${day} ${transformMounth(month)} ${fullYear}`}</h4>
+            <p>{taskDetail.description}</p>
           </Details>
         </div>
         <NewTask>
