@@ -3,7 +3,7 @@ import React, { useContext, createContext, useState } from "react";
 const OrderServiceContext = createContext({});
 
 export const OrderServiceProvider = ({ children }) => {
-  const [specificTask, setSpecificTask] = useState(8);
+  const [specificTask, setSpecificTask] = useState(null);
 
   return (
     <OrderServiceContext.Provider

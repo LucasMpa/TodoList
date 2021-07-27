@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { IoIosArrowUp } from "react-icons/io";
 import { useOrderService } from "../../contexts/orderService";
-import { transformMounth } from "../../utils/taskActions";
+import { transformMounth } from "../../utils/dateActions";
 import { Container, ListTasks, TitleSection, TaskUnit } from "./styles";
 
 const getTasks = gql`
@@ -21,11 +21,9 @@ const getTasks = gql`
 function TaskList() {
   const [activeOpenTasks, setActiveOpenTasks] = useState(false);
   const [activeClosedTasks, setActiveClosedTasks] = useState(false);
-  const { loading, data } = useQuery(getTasks);
+  const { loading, data } = useQuery(getTasks, { pollInterval: 100 });
 
-  const { specificTask, setSpecificTask } = useOrderService();
-
-  console.log(specificTask);
+  const { setSpecificTask } = useOrderService();
 
   if (loading) return "";
 
