@@ -1,29 +1,40 @@
 import { gql, useMutation } from "@apollo/client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Container, Dialog, Footer, CloseButton } from "./styles";
 
 const removeTask = gql`
-  mutation AddTodo($title: String!, $description: String) {
-    newTask(data: { title: $title, description: $description }) {
-      id
+  mutation AddTodo($title: String!, $description: String, $id: Int!) {
+    editTask(
+      filter: { id: $id }
+      data: { title: $title, description: $description }
+    ) {
       title
       description
     }
   }
 `;
 
-function ModalAdd({ visibility, toggle }) {
+function ModalEdit({ visibility, toggle, taskReference }) {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [addTodo, { error }] = useMutation(removeTask);
 
+  useEffect(() => {
+    setTitle(taskReference.title);
+    setDescription(taskReference.description);
+  }, [taskReference]);
+
   function verifyFields() {
     if (title && description) {
       return addTodo({
-        variables: { title: title, description: description },
+        variables: {
+          title: title,
+          description: description,
+          id: taskReference.id,
+        },
       })
         .then(toggle)
         .then(setTitle(null), setDescription(null));
@@ -49,13 +60,14 @@ function ModalAdd({ visibility, toggle }) {
                 <CloseButton onClick={() => toggle()}>
                   <AiOutlineClose />
                 </CloseButton>
-                <h3>Nova Tarefa</h3>
+                <h3>Editar Tarefa</h3>
                 <h3>{error}</h3>
                 <section>
                   <span>
                     <label>Título</label>
                     <input
                       type={Text}
+                      value={title}
                       onChange={(e) => setTitle(e.target.value)}
                     />
                   </span>
@@ -63,6 +75,7 @@ function ModalAdd({ visibility, toggle }) {
                     <label>Descrição</label>
                     <textarea
                       rows={4}
+                      value={description}
                       onChange={(e) => setDescription(e.target.value)}
                     />
                   </span>
@@ -79,4 +92,4 @@ function ModalAdd({ visibility, toggle }) {
   );
 }
 
-export default ModalAdd;
+export default ModalEdit;

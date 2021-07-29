@@ -4,12 +4,15 @@ const OrderServiceContext = createContext({});
 
 export const OrderServiceProvider = ({ children }) => {
   const [specificTask, setSpecificTask] = useState(null);
+  const [toggleTaskList, setToggleTaskList] = useState(false);
 
   return (
     <OrderServiceContext.Provider
       value={{
         specificTask,
+        toggleTaskList,
         setSpecificTask,
+        setToggleTaskList,
       }}
     >
       {children}

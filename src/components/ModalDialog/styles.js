@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Dimensions } from "../../utils/constants";
 
 export const Container = styled.div`
   z-index: ${(props) => (props.visibility ? "1" : "-1")};
@@ -28,6 +29,7 @@ export const Container = styled.div`
 export const Dialog = styled.div`
   position: relative;
   width: 30%;
+  max-width: 420px;
   height: 50%;
   display: flex;
   flex-direction: column;
@@ -36,6 +38,13 @@ export const Dialog = styled.div`
   border-radius: 10px;
   background-color: rgb(43, 49, 54);
   opacity: 1 !important;
+
+  @media (max-width: ${Dimensions.maxWidth}) {
+    width: 60%;
+    height: 270px;
+    text-align: center;
+    padding: 20px;
+  }
 
   & > span {
     display: flex;

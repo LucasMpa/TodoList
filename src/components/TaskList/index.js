@@ -4,7 +4,13 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import { IoIosArrowUp } from "react-icons/io";
 import { useOrderService } from "../../contexts/orderService";
 import { transformMounth } from "../../utils/dateActions";
-import { Container, ListTasks, TitleSection, TaskUnit } from "./styles";
+import {
+  Container,
+  ListTasks,
+  TitleSection,
+  TaskUnit,
+  CloseBlock,
+} from "./styles";
 
 const getTasks = gql`
   query {
@@ -23,9 +29,15 @@ function TaskList() {
   const [activeClosedTasks, setActiveClosedTasks] = useState(false);
   const { loading, data } = useQuery(getTasks, { pollInterval: 100 });
 
-  const { setSpecificTask } = useOrderService();
+  const { setSpecificTask, toggleTaskList, setToggleTaskList } =
+    useOrderService();
 
   if (loading) return "";
+
+  function setTaskAndClose(id) {
+    setSpecificTask(id);
+    setToggleTaskList(!toggleTaskList);
+  }
 
   function TaskListContent({ listStatus, taskCompleted }) {
     return (
@@ -39,7 +51,7 @@ function TaskList() {
           if (dados.is_conclued === taskCompleted) {
             return (
               <TaskUnit
-                onClick={() => setSpecificTask(dados.id)}
+                onClick={() => setTaskAndClose(dados.id)}
                 isConclued={dados.is_conclued}
               >
                 <AiOutlineCheckCircle />
@@ -58,21 +70,29 @@ function TaskList() {
 
   return (
     <>
-      <Container>
-        <TitleSection active={activeOpenTasks}>
+      <Container visibility={toggleTaskList}>
+        <TitleSection
+          active={activeOpenTasks}
+          onClick={() => setActiveOpenTasks(!activeOpenTasks)}
+        >
           <h1>Tarefas Abertas</h1>
-          <IoIosArrowUp onClick={() => setActiveOpenTasks(!activeOpenTasks)} />
+          <IoIosArrowUp />
         </TitleSection>
         <TaskListContent listStatus={activeOpenTasks} taskCompleted={false} />
 
-        <TitleSection active={activeClosedTasks}>
+        <TitleSection
+          active={activeClosedTasks}
+          onClick={() => setActiveClosedTasks(!activeClosedTasks)}
+        >
           <h1>Tarefas Fechadas</h1>
-          <IoIosArrowUp
-            onClick={() => setActiveClosedTasks(!activeClosedTasks)}
-          />
+          <IoIosArrowUp />
         </TitleSection>
         <TaskListContent listStatus={activeClosedTasks} taskCompleted={true} />
       </Container>
+      <CloseBlock
+        onClick={() => setToggleTaskList(!toggleTaskList)}
+        visibility={toggleTaskList}
+      ></CloseBlock>
     </>
   );
 }

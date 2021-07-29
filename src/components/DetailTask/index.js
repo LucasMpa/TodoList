@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AiFillCheckCircle, AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { GiHamburgerMenu } from "react-icons/gi";
 //import { useOrderService } from "../../contexts/orderService";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import {
@@ -8,12 +9,26 @@ import {
   Actions,
   NewTask,
   NoDataContainer,
+  NoDataHamburguer,
 } from "./styles";
 import { useOrderService } from "../../contexts/orderService";
 import { transformMounth } from "../../utils/dateActions";
 import ModalDialog from "../ModalDialog";
 import Empty from "../../Assets/no_data.png";
 import ModalAdd from "../ModalAdd";
+import ModalEdit from "../ModalEdit";
+
+const tasks = gql`
+  query {
+    tasks {
+      id
+      title
+      description
+      is_conclued
+      created_at
+    }
+  }
+`;
 
 const toggleTask = gql`
   mutation addTodo($id: Int!, $conclusion: Boolean!) {
@@ -30,6 +45,7 @@ function ButtonConfirm({ openModal }) {
   );
 }
 function NoData() {
+  const { toggleTaskList, setToggleTaskList } = useOrderService();
   const [modalNewTask, setModalNewTask] = useState();
   return (
     <>
@@ -37,6 +53,9 @@ function NoData() {
         visibility={modalNewTask}
         toggle={() => setModalNewTask(!modalNewTask)}
       />
+      <NoDataHamburguer>
+        <GiHamburgerMenu onClick={() => setToggleTaskList(!toggleTaskList)} />
+      </NoDataHamburguer>
       <NoDataContainer>
         <img src={Empty} alt="Empty" />
         <h2>Ops</h2>
@@ -48,22 +67,10 @@ function NoData() {
 }
 
 function DetailTask() {
-  const { specificTask } = useOrderService();
+  const { specificTask, toggleTaskList, setToggleTaskList } = useOrderService();
   const [addTodo] = useMutation(toggleTask);
-  const tasks = gql`
-    query {
-      tasks {
-        id
-        title
-        description
-        is_conclued
-        created_at
-      }
-    }
-  `;
-
   const { loading, data } = useQuery(tasks);
-  const [teste, setTeste] = useState(false);
+  const [modalEditTask, setModalEditTask] = useState(false);
   const [modalNewTask, setModalNewTask] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -91,6 +98,11 @@ function DetailTask() {
             visibility={modalNewTask}
             toggle={() => setModalNewTask(!modalNewTask)}
           />
+          <ModalEdit
+            visibility={modalEditTask}
+            taskReference={getDetailsById(specificTask)[0]}
+            toggle={() => setModalEditTask(!modalEditTask)}
+          />
           <ModalDialog
             visibility={openModal}
             toggle={() => setOpenModal(!openModal)}
@@ -100,12 +112,17 @@ function DetailTask() {
           />
           <Container isConclued={taskDetail.is_conclued}>
             <Actions>
-              <span onClick={() => setTeste(!teste)}>
-                <AiFillEdit />
+              <span onClick={() => setToggleTaskList(!toggleTaskList)}>
+                <GiHamburgerMenu />
               </span>
-              <span onClick={() => setOpenModal(!openModal)}>
-                <AiFillDelete />
-              </span>
+              <div>
+                <span onClick={() => setModalEditTask(!modalEditTask)}>
+                  <AiFillEdit />
+                </span>
+                <span onClick={() => setOpenModal(!openModal)}>
+                  <AiFillDelete />
+                </span>
+              </div>
             </Actions>
             <div>
               <span
@@ -122,12 +139,10 @@ function DetailTask() {
                 {taskDetail.is_conclued ? "Concluído" : "Pendente"}
               </span>
 
-              <Details editDescription={teste}>
+              <Details>
                 <h2>{taskDetail.title}</h2>
-                <textarea rows="1" cols="45" className="titleEdit"></textarea>
                 <h4>{`${day} ${transformMounth(month)} ${fullYear}`}</h4>
                 <p>{taskDetail.description}</p>
-                <textarea rows="5" cols="45"></textarea>
               </Details>
             </div>
             <ButtonConfirm openModal={() => setModalNewTask(true)} />

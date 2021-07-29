@@ -6,27 +6,24 @@ body {
   background-color: #2b3136;
 }
 
-textarea {
-  font-size: .8rem;
-  letter-spacing: 1px;
-}
-
-h3{
+h3 {
   margin: 0;
 }
 
-textarea {
-  padding: 10px;
+textarea, input {
+  font-size: .8rem;
+  letter-spacing: 1px;
+  padding: 5px;
   max-width: 100%;
   line-height: 1.5;
   border-radius: 5px;
   border: 1px solid #ccc;
   box-shadow: 1px 1px 1px #999;
-  margin: 20px 0;
+  margin: 10px 0;
   font-family: 'Montserrat', sans-serif;
 }
 
-.titleEdit{
+.titleEdit {
   resize: none;
 }
 
@@ -37,4 +34,12 @@ textarea {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+@media (max-width: 600px) {
+  #root {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+  }
 }
