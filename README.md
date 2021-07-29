@@ -21,7 +21,7 @@
 # Sobre
 Em busca de aprimorar meus conhecimentos em NodeJS e Back-end, me adentrei em um curso da Udemy sobre GraphQL e com intuito de colocar em prática meus conhecimentos aquiridos, decidi por fazer este projeto, sendo assim, minha primeira aplicação em que construo do início ao fim, utilizando NodeJS e GraphQL no back-end e ReactJs no front.
 
-## Como Iniciar Na Sua Máquina?
+## Como Iniciar Na Sua Máquina
 Como ainda não hospedei este serviço, você precisa startar a aplicação React em conjunto a aplicação em NodeJS, pois como o front-end está consumindo dados a partir da API criada com GraphQL ambos precisam serem iniciados juntos. 
 
 Em breve colocarei o link e as instruções para fazer o deploy do back-end.
