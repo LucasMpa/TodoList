@@ -8,8 +8,8 @@
      Página de lista de tarefas 
        <br/>
     <br/>
+     <img src="https://i.imgur.com/AYMNFfJ.gif" alt="mobile-version" width="350">
   </p>
-    <img src="https://i.imgur.com/AYMNFfJ.gif" alt="mobile-version" width="350">
 </p>
 
 ## Índice
