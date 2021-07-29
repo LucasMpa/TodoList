@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+<br />
+<p align="center">
+    <img src="https://i.imgur.com/oVZ0sZ4.gif" alt="Logo" width="1000">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  <h3 align="center">TodoList by <a href="https://www.linkedin.com/in/lucasmpa/">Lucas Matheus</a></h3>
+ <br />
+  <p align="center">
+     Página de lista de tarefas 
+       <br/>
+    <br/>
+  </p>
+</p>
 
-## Available Scripts
+## Índice
 
-In the project directory, you can run:
+* [Sobre](#sobre) 
+* [Como Rodar a Aplicação no seu Computador?](#como-rodar-a-aplicacao-no-seu-computador) 
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Sobre
+Em busca de aprimorar meus conhecimentos em nodeJS e back-end, me adentrei em um curso da Udemy sobre GraphQL e com intuito de colocar em prática meus conhecimentos aquiridos no curso decidi por fazer este projeto, sendo assim, minha primeira aplicação em que construo do início ao fim, utilizando NodeJS e GraphQL no back-end e ReactJs no front.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Como Rodar a Aplicação no seu Computador?
+Como ainda não hospedei este serviço, você precisa startar a aplicação React em conjunto a aplicação em NodeJS, pois como o front-end está consumindo dados a partir da API criada com GraphQL ambos precisam serem iniciados juntos. 
 
-### `yarn test`
+Em breve colocarei o link e as instruções para fazer o deploy do back-end.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+Para instalar as dependências:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+ $ npm i
+ 
+ ou
+ 
+ $ yarn
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Para iniciar o projeto:
+```
+ $ npm start
+ 
+ ou
+ 
+ $ yarn start
+```
+Obs: Por padrão, o react inicia na porta 3000, fique atento caso tenha algum serviço sendo usado nessa porta.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Desafio criado por  <a href="https://www.linkedin.com/in/lucasmpa/">Lucas Matheus</a> :)
