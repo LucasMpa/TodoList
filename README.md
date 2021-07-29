@@ -15,7 +15,7 @@
 ## Índice
 
 * [Sobre](#sobre) 
-* [Como Iniciar Na Sua Máquina](#como-iniciar-na-sua-maquina) 
+* [Como Iniciar Na Sua Máquina](#como-iniciar-na-sua-máquina) 
 
 
 # Sobre
