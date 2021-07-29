@@ -15,7 +15,7 @@
 ## Índice
 
 * [Sobre](#sobre) 
-* [Como Rodar a Aplicação no seu Computador?](#como-rodar-a-aplicacao-no-seu-computador) 
+* [Como Iniciar Na Sua Máquina](#como-iniciar-na-sua-maquina) 
 
 
 # Sobre
@@ -48,4 +48,4 @@ Para iniciar o projeto:
 Obs: Por padrão, o react inicia na porta 3000, fique atento caso tenha algum serviço sendo usado nessa porta.
 
 
-Desafio criado por  <a href="https://www.linkedin.com/in/lucasmpa/">Lucas Matheus</a> :)
+Desenvolvido por  <a href="https://www.linkedin.com/in/lucasmpa/">Lucas Matheus</a> :)
