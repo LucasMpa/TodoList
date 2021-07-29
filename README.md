@@ -1,7 +1,6 @@
 <br />
 <p align="center">
     <img src="https://i.imgur.com/oVZ0sZ4.gif" alt="desktop-version" width="1000">
-    <img src="https://i.imgur.com/AYMNFfJ.gif" alt="mobile-version" width="350">
 
   <h3 align="center">TodoList by <a href="https://www.linkedin.com/in/lucasmpa/">Lucas Matheus</a></h3>
  <br />
@@ -10,6 +9,7 @@
        <br/>
     <br/>
   </p>
+    <img src="https://i.imgur.com/AYMNFfJ.gif" alt="mobile-version" width="350">
 </p>
 
 ## Índice
