@@ -47,5 +47,6 @@ Para iniciar o projeto:
 ```
 Obs: Por padrão, o react inicia na porta 3000, fique atento caso tenha algum serviço sendo usado nessa porta.
 
+Clique <a href="https://github.com/LucasMpa/TodoList_backend">aqui</a> para acessar o back-end da aplicação.
 
 Desenvolvido por  <a href="https://www.linkedin.com/in/lucasmpa/">Lucas Matheus</a> :)
